@@ -1,6 +1,7 @@
 import streamlit as st
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+import time  # ← リトライ処理に使う
 
 # --- Google Sheets 認証 ---
 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
@@ -12,6 +13,18 @@ client = gspread.authorize(creds)
 SPREADSHEET_NAME = "2025年度_起床時コンディションチェック"
 SHEET_NAME = "condition2025"
 sheet = client.open(SPREADSHEET_NAME).worksheet(SHEET_NAME)
+
+# --- リトライ付き append_row 関数 ---
+def safe_append_row(worksheet, row_data, retries=3, delay=1):
+    for i in range(retries):
+        try:
+            worksheet.append_row(row_data)
+            return True
+        except Exception as e:
+            if i < retries - 1:
+                time.sleep(delay * (i + 1))  # 1秒→2秒→3秒
+            else:
+                raise e
 
 # --- スライダー（数値非表示）関数 ---
 def secret_slider_with_labels(title, left_label, right_label, key, min_value=0, max_value=100, default=50):
@@ -78,7 +91,7 @@ st.markdown("**23. 運動のきつさ（RPE）**")
 st.image("rpe_chart.png", caption="運動のきつさ（0～10）", use_container_width=True)
 exercise_rpe = st.selectbox("RPEを選択してください", list(range(0, 11)))
 
-# --- 送信処理 ---
+# --- 送信処理（リトライ付き） ---
 if st.button("送信"):
     if not team or not name:
         st.error("❗ 所属と名前を入力してください")
@@ -88,11 +101,11 @@ if st.button("送信"):
         st.error("❗ 11. 故障の箇所を入力してください")
     elif "その他" in symptoms and not other_symptoms:
         st.error("❗ 21-1. その他の症状を入力してください")
-    elif not exercise_rpe:
+    elif exercise_rpe is None:
         st.error("❗23. 運動のきつさ（RPE）を選択してください")
     else:
         try:
-            sheet.append_row([
+            safe_append_row(sheet, [
                 str(date), team, name, health_condition, fatigue,
                 sleep_time, sleep_quality, ", ".join(sleep_issues),
                 appetite, injury, injury_part, injury_severity,
@@ -103,4 +116,5 @@ if st.button("送信"):
             ])
             st.success("✅ Googleスプレッドシートに送信しました！")
         except Exception as e:
-            st.error(f"送信失敗: {e}")
+            st.error(f"送信失敗（リトライ後）: {e}")
+
