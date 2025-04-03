@@ -51,7 +51,7 @@ name = st.text_input("名前")
 health_condition = secret_slider_with_labels("4. 全般的体調", "とても悪い", "とても良い", "health")
 fatigue = secret_slider_with_labels("5. 疲労感", "とても強い", "全く無い", "fatigue")
 
-st.markdown("**6. 睡眠時間（例：7.5）**")
+st.markdown("**6. 睡眠時間（例：7時間15分→7.25、7時間30分→7.5）**")
 sleep_time = st.number_input("", 0.0, 24.0, step=0.1)
 
 sleep_quality = secret_slider_with_labels("7. 睡眠の深さ", "とても浅い", "とても深い", "sleep_quality")
@@ -92,6 +92,7 @@ st.image("rpe_chart.png", caption="運動のきつさ（0～10）", use_containe
 exercise_rpe = st.selectbox("RPEを選択してください", list(range(0, 11)))
 
 # --- 送信処理（リトライ付き） ---
+# Google Sheets の読み込みを送信ボタンの中に移動！
 if st.button("送信"):
     if not team or not name:
         st.error("❗ 所属と名前を入力してください")
@@ -105,6 +106,8 @@ if st.button("送信"):
         st.error("❗23. 運動のきつさ（RPE）を選択してください")
     else:
         try:
+            # ここで初めて Sheets に接続！
+            sheet = client.open(SPREADSHEET_NAME).worksheet(SHEET_NAME)
             safe_append_row(sheet, [
                 str(date), team, name, health_condition, fatigue,
                 sleep_time, sleep_quality, ", ".join(sleep_issues),
