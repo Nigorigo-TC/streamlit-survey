@@ -156,7 +156,13 @@ else:
 # --- 管理者メニュー（パスワード付き） ---
 with st.expander("🛠 管理者メニュー（Supabase → スプレッドシート出力）"):
     admin_pass = st.text_input("管理者パスワードを入力", type="password")
+
+    # 🔍 ← これを追加（あとで消してOK）
+    st.write("💬 入力された値:", admin_pass)
+    st.write("🔐 secretsから取得した値:", st.secrets.get("admin_password"))
+
     if admin_pass == st.secrets.get("admin_password"):
+        st.success("✅ パスワード一致しました！")
         if st.button("📤 データを出力する"):
             df = fetch_supabase_data()
             if df.empty:
