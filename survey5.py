@@ -10,6 +10,7 @@ SUPABASE_URL = st.secrets["supabase_url"]
 SUPABASE_KEY = st.secrets["supabase_key"]
 TABLE_NAME = "condition"
 
+# --- Supabaseにデータ送信 ---
 def submit_to_supabase(data_dict):
     headers = {
         "apikey": SUPABASE_KEY,
@@ -23,7 +24,17 @@ def submit_to_supabase(data_dict):
     )
     return response.status_code == 201
 
-# --- Supabase全データ取得（管理者用） ---
+# --- スライダー（数値非表示）関数 ---
+def secret_slider_with_labels(title, left_label, right_label, key, min_value=0, max_value=100, default=50):
+    st.markdown(f"**{title}**")
+    st.markdown(f"""
+        <div style='display: flex; justify-content: space-between;'>
+            <span>{left_label}</span><span>{right_label}</span>
+        </div>
+    """, unsafe_allow_html=True)
+    return st.select_slider("", list(range(min_value, max_value + 1)), default, format_func=lambda x: "", key=key)
+
+# --- Supabaseから全データ取得（管理者用） ---
 def fetch_supabase_data():
     headers = {
         "apikey": SUPABASE_KEY,
@@ -54,7 +65,6 @@ if "submitted" not in st.session_state:
 st.title("コンディション記録")
 
 if not st.session_state["submitted"]:
-    # --- アンケートフォーム ---
     date_val = st.date_input("**1. 日付**", value=date.today())
     team = st.text_input("**2. 所属**")
     name = st.text_input("**3. 名前**")
@@ -95,7 +105,6 @@ if not st.session_state["submitted"]:
     st.image("rpe_chart.png", caption="運動のきつさ（0～10）", use_container_width=True)
     exercise_rpe = st.selectbox("RPEを選択してください", list(range(0, 11)))
 
-    # --- 送信ボタン ---
     if st.button("送信"):
         if not team or not name:
             st.error("❗ 所属と名前を入力してください")
@@ -139,9 +148,7 @@ if not st.session_state["submitted"]:
                 st.session_state["submitted"] = True
             else:
                 st.error("❌ Supabaseへの送信に失敗しました。")
-
 else:
-    # ✅ 送信完了画面
     st.success("✅ 回答ありがとうございました！")
     st.balloons()
     st.markdown("次回もよろしくお願いします！")
