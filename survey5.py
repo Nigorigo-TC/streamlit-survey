@@ -117,3 +117,43 @@ if st.button("送信"):
             st.success("✅ Supabaseに送信しました！")
         else:
             st.error("❌ Supabaseへの送信に失敗しました。")
+
+
+
+import pandas as pd
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
+
+# --- Supabaseから全データ取得 ---
+def fetch_supabase_data():
+    headers = {
+        "apikey": SUPABASE_KEY,
+        "Authorization": f"Bearer {SUPABASE_KEY}"
+    }
+    res = requests.get(f"{SUPABASE_URL}/rest/v1/{TABLE_NAME}?select=*", headers=headers)
+    return pd.DataFrame(res.json())
+
+# --- Googleスプレッドシートに出力 ---
+SPREADSHEET_NAME = "2025年度_保存データ"  # 出力先のスプレッドシート名
+SHEET_NAME = "出力シート"  # 出力先のシート名
+
+def export_to_gsheet(df):
+    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+    creds_dict = st.secrets["google_service_account"]
+    creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
+    client = gspread.authorize(creds)
+    sheet = client.open(SPREADSHEET_NAME).worksheet(SHEET_NAME)
+    sheet.clear()
+    sheet.insert_row(df.columns.tolist(), 1)  # ヘッダー
+    sheet.insert_rows(df.values.tolist(), 2)  # データ
+
+# --- 管理者用：エクスポートボタン ---
+with st.expander("🛠 管理者メニュー（Supabase → スプレッドシート出力）"):
+    if st.button("📤 データを出力する"):
+        df = fetch_supabase_data()
+        if df.empty:
+            st.warning("⚠ Supabaseにデータがありません")
+        else:
+            export_to_gsheet(df)
+            st.success(f"✅ {len(df)} 件のデータをGoogleスプレッドシートに出力しました！")
+
