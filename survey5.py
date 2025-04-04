@@ -135,7 +135,7 @@ def fetch_supabase_data():
 
 # --- Googleスプレッドシートに出力 ---
 SPREADSHEET_NAME = "2025年度_起床時コンディションチェック"  # 出力先のスプレッドシート名
-SHEET_NAME = "出力シート"  # 出力先のシート名
+SHEET_NAME = "condition2025"  # 出力先のシート名
 
 def export_to_gsheet(df):
     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
