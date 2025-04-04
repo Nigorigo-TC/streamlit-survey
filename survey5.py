@@ -134,7 +134,7 @@ def fetch_supabase_data():
     return pd.DataFrame(res.json())
 
 # --- Googleスプレッドシートに出力 ---
-SPREADSHEET_NAME = "2025年度_保存データ"  # 出力先のスプレッドシート名
+SPREADSHEET_NAME = "2025年度_起床時コンディションチェック"  # 出力先のスプレッドシート名
 SHEET_NAME = "出力シート"  # 出力先のシート名
 
 def export_to_gsheet(df):
