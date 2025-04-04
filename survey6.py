@@ -128,6 +128,7 @@ if not is_admin:
                 }
                 if submit_to_supabase(data):
                     st.session_state["submitted"] = True
+                    st.experimental_rerun()
                 else:
                     st.error("❌ Supabaseへの送信に失敗しました。")
     else:
