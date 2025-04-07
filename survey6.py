@@ -223,23 +223,4 @@ if not is_admin:
         st.balloons()
         st.markdown("次回もよろしくお願いします！")
 
-# ========================
-# 管理者ページ（?admin=1）
-# ========================
-else:
-    st.title("🛠 管理者メニュー（Supabase → スプレッドシート出力）")
-    admin_pass = st.text_input("管理者パスワードを入力", type="password")
-    if admin_pass == st.secrets.get("admin_password"):
-        if st.button("📤 データを出力する"):
-            df = fetch_supabase_data()
-            if df.empty:
-                st.warning("⚠ Supabaseにデータがありません")
-            else:
-                export_to_gsheet(df)
-                st.success(f"✅ {len(df)} 件のデータをGoogleスプレッドシートに出力しました！")
-    elif admin_pass:
-        st.error("❌ パスワードが間違っています")
-
-
-        st.error("❌ パスワードが間違っています")
 
