@@ -17,6 +17,7 @@ def submit_to_supabase(data_dict):
         "Authorization": f"Bearer {SUPABASE_KEY}",
         "Content-Type": "application/json"
     }
+    data_dict["exported"] = False  # 新規は未出力とする
     response = requests.post(
         f"{SUPABASE_URL}/rest/v1/{TABLE_NAME}",
         json=[data_dict],
@@ -24,16 +25,30 @@ def submit_to_supabase(data_dict):
     )
     return response.status_code == 201
 
-# --- Supabaseから全データ取得（管理者用） ---
-def fetch_supabase_data():
+# --- Supabaseから未出力データ取得 ---
+def fetch_unexported_data():
     headers = {
         "apikey": SUPABASE_KEY,
         "Authorization": f"Bearer {SUPABASE_KEY}"
     }
-    res = requests.get(f"{SUPABASE_URL}/rest/v1/{TABLE_NAME}?select=*", headers=headers)
+    url = f"{SUPABASE_URL}/rest/v1/{TABLE_NAME}?exported=eq.false&select=*"
+    res = requests.get(url, headers=headers)
     return pd.DataFrame(res.json())
 
-# --- Googleスプレッドシート出力（管理者用） ---
+# --- Supabaseのデータをexported=trueに更新 ---
+def mark_as_exported(ids):
+    if not ids:
+        return
+    headers = {
+        "apikey": SUPABASE_KEY,
+        "Authorization": f"Bearer {SUPABASE_KEY}",
+        "Content-Type": "application/json"
+    }
+    for record_id in ids:
+        url = f"{SUPABASE_URL}/rest/v1/{TABLE_NAME}?id=eq.{record_id}"
+        requests.patch(url, headers=headers, json={"exported": True})
+
+# --- Googleスプレッドシート出力 ---
 SPREADSHEET_NAME = "2025年度_起床時コンディションチェック"
 SHEET_NAME = "condition2025"
 
@@ -61,6 +76,25 @@ if "submitted" not in st.session_state:
 # --- 管理者判定 ---
 query_params = st.query_params
 is_admin = query_params.get("admin", ["0"])[0] == "1"
+
+# ========================
+# 管理者ページ（?admin=1）
+# ========================
+if is_admin:
+    st.title("🛠 管理者メニュー（未出力データ → スプレッドシート）")
+    admin_pass = st.text_input("管理者パスワードを入力", type="password")
+
+    if admin_pass == st.secrets.get("admin_password"):
+        if st.button("📤 未出力データを出力する"):
+            df = fetch_unexported_data()
+            if df.empty:
+                st.warning("⚠ 未出力データはありません")
+            else:
+                export_to_gsheet(df.drop(columns=["exported"]))
+                mark_as_exported(df["id"].tolist())
+                st.success(f"✅ {len(df)} 件のデータを出力し、exported=true に更新しました！")
+    elif admin_pass:
+        st.error("❌ パスワードが間違っています")
 
 # ========================
 # 一般ユーザー用ページ
@@ -197,36 +231,15 @@ else:
     admin_pass = st.text_input("管理者パスワードを入力", type="password")
     if admin_pass == st.secrets.get("admin_password"):
         if st.button("📤 データを出力する"):
-           if st.button("📤 データを出力する"):
-    # 1. Supabaseからexported = falseのデータだけ取得
-    headers = {
-        "apikey": SUPABASE_KEY,
-        "Authorization": f"Bearer {SUPABASE_KEY}"
-    }
-    res = requests.get(f"{SUPABASE_URL}/rest/v1/{TABLE_NAME}?select=*&exported=eq.false", headers=headers)
-    df = pd.DataFrame(res.json())
-
-    if df.empty:
-        st.warning("⚠ 出力対象の新規データはありません")
-    else:
-        # 2. Googleスプレッドシートに出力
-        export_to_gsheet(df)
-
-        # 3. 出力済みデータのexportedフラグをtrueに更新
-        for row in df.to_dict(orient="records"):
-            # 主キー（または一意のカラム）で対象を特定する。ここでは "id" があると仮定
-            row_id = row["id"]
-            update_res = requests.patch(
-                f"{SUPABASE_URL}/rest/v1/{TABLE_NAME}?id=eq.{row_id}",
-                headers={
-                    "apikey": SUPABASE_KEY,
-                    "Authorization": f"Bearer {SUPABASE_KEY}",
-                    "Content-Type": "application/json"
-                },
-                json={"exported": True}
-            )
-        st.success(f"✅ {len(df)} 件の新規データを出力＆マーク済みにしました！")
-
+            df = fetch_supabase_data()
+            if df.empty:
+                st.warning("⚠ Supabaseにデータがありません")
+            else:
+                export_to_gsheet(df)
+                st.success(f"✅ {len(df)} 件のデータをGoogleスプレッドシートに出力しました！")
     elif admin_pass:
+        st.error("❌ パスワードが間違っています")
+
+
         st.error("❌ パスワードが間違っています")
 
