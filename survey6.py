@@ -82,7 +82,7 @@ is_admin = query_params.get("admin", ["0"])[0] == "1"
 # ========================
 if is_admin:
     st.title("🛠 管理者メニュー（未出力データ → スプレッドシート）")
-    admin_pass = st.text_input("管理者パスワードを入力", type="password")
+    admin_pass = st.text_input("管理者パスワードを入力", type="password", key="admin_password_input")
 
     if admin_pass == st.secrets.get("admin_password"):
         if st.button("📤 未出力データを出力する"):
@@ -95,7 +95,7 @@ if is_admin:
                 st.success(f"✅ {len(df)} 件のデータを出力し、exported=true に更新しました！")
     elif admin_pass:
         st.error("❌ パスワードが間違っています")
-
+        
 # ========================
 # 一般ユーザー用ページ
 # ========================
