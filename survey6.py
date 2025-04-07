@@ -58,9 +58,12 @@ def export_to_gsheet(df):
     creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
     client = gspread.authorize(creds)
     sheet = client.open(SPREADSHEET_NAME).worksheet(SHEET_NAME)
-    sheet.clear()
-    sheet.insert_row(df.columns.tolist(), 1)
-    sheet.insert_rows(df.values.tolist(), 2)
+
+    existing_data = sheet.get_all_values()
+    if not existing_data:
+        sheet.insert_row(df.columns.tolist(), 1)  # ヘッダーがない場合のみ追加
+
+    sheet.append_rows(df.values.tolist())
 
 # --- スライダー（数値非表示）関数 ---
 def secret_slider_with_labels(title, left_label, right_label, key, min_value=0, max_value=100, default=50):
