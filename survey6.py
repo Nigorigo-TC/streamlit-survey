@@ -164,7 +164,7 @@ if not is_admin:
             elif "その他" in symptoms and not other_symptoms:
                 st.error("❗ 21-1. その他の症状を入力してください")
             elif not exercise_rpe:
-                st.errow("❗23. 運動のきつさ（RPE）を選択してください")
+                st.error("❗23. 運動のきつさ（RPE）を選択してください")
             else:
                 data = {
                     "date": str(date_val), "team": team, "name": name,
