@@ -109,30 +109,30 @@ if not is_admin:
         date_val = st.date_input("**1. Date**", value=date.today(), key="date")
         st.caption("")
 
-        st.markdown("**2. 所属**")
+        st.markdown("**2. Team name**")
         team = st.text_input("", key="team")
         st.caption("")
 
-        st.markdown("**3. 名前**")
+        st.markdown("**3. Name**")
         name = st.text_input("", key="name")
-        st.caption("※ フルネームで入力してください")
+        st.caption("※ Please write your fulname")
 
-        health_condition = secret_slider_with_labels("4. 全般的体調", "とても悪い", "とても良い", "health")
+        health_condition = secret_slider_with_labels("4. Body condition", "Very Bad", "Very Good", "health")
         st.caption("")
 
-        fatigue = secret_slider_with_labels("5. 疲労感", "とても強い", "全く無い", "fatigue")
+        fatigue = secret_slider_with_labels("5. Fatigue", "Very Bad", "Very Good", "fatigue")
         st.caption("")
 
-        st.markdown("**6. 睡眠時間（例：7時間15分→7.25、7時間30分→7.5）**")
+        st.markdown("**6. Amout of sleep（ex. 7h15min→7.25、7h30min→7.5）**")
         sleep_time = st.number_input("", 0.0, 24.0, step=0.1, key="sleep_time")
         st.caption("")
 
-        sleep_quality = secret_slider_with_labels("7. 睡眠の深さ", "とても浅い", "とても深い", "sleep_quality")
+        sleep_quality = secret_slider_with_labels("7. Deepness of sleep", "Very Shallow", "Very Deep", "sleep_quality")
         st.caption("")
 
-        st.markdown("**8. 睡眠状況（複数選択）**")
+        st.markdown("**8. Quality of sleep（multiple choice）**")
         sleep_issues = st.multiselect("", [
-            "夢を見た", "何回も目覚めた", "何回もトイレに行った", "寝汗をかいた", "普段より寝付けなかった", "特になし"], key="sleep_issues")
+            "Had a dream", "Woke up many times", "Went to restroom many times", "Perspired in sleep", "uneasy", "特になし"], key="sleep_issues")
         st.caption("")
 
         appetite = secret_slider_with_labels("9. 食欲", "全く無い", "とてもある", "appetite")
