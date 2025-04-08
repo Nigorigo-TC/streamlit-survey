@@ -106,7 +106,7 @@ if not is_admin:
     st.title("Record of the physical condition")
 
     if not st.session_state["submitted"]:
-        date_val = st.date_input("**1. 日付**", value=date.today(), key="date")
+        date_val = st.date_input("**1. Date**", value=date.today(), key="date")
         st.caption("")
 
         st.markdown("**2. 所属**")
