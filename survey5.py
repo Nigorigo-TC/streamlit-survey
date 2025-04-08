@@ -103,7 +103,7 @@ if is_admin:
 # 一般ユーザー用ページ
 # ========================
 if not is_admin:
-    st.title("コンディション記録")
+    st.title("Record of the physical condition")
 
     if not st.session_state["submitted"]:
         date_val = st.date_input("**1. 日付**", value=date.today(), key="date")
