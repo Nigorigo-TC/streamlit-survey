@@ -115,7 +115,7 @@ if not is_admin:
 
         st.markdown("**3. Name**")
         name = st.text_input("", key="name")
-        st.caption("※ Please write your fulname")
+        st.caption("※ Please enter your full name")
 
         health_condition = secret_slider_with_labels("4. Body condition", "Very Bad", "Very Good", "health")
         st.caption("")
@@ -132,31 +132,31 @@ if not is_admin:
 
         st.markdown("**8. Quality of sleep（multiple choice）**")
         sleep_issues = st.multiselect("", [
-            "Had a dream", "Woke up many times", "Went to restroom many times", "Perspired in sleep", "uneasy", "特になし"], key="sleep_issues")
+            "Had a dream", "Woke up many times", "Went to restroom many times", "Perspired in sleep", "uneasy to sleep", "nothing in particular"], key="sleep_issues")
         st.caption("")
 
-        appetite = secret_slider_with_labels("9. 食欲", "全く無い", "とてもある", "appetite")
+        appetite = secret_slider_with_labels("9. Appetite", "Very Small", "Very Big", "appetite")
         st.caption("")
 
-        injury = st.radio("**10. 故障の有無**", ["無", "有"], key="injury")
+        injury = st.radio("**10. Injury**", ["without", "with"], key="injury")
         st.caption("")
 
-        st.markdown("**11. 故障の箇所**")
-        injury_part = st.text_input("", key="injury_part") if injury == "有" else ""
-        st.caption("※ 故障している場合は部位を具体的に入力")
+        st.markdown("**11. Injured area**")
+        injury_part = st.text_input("", key="injury_part") if injury == "with" else ""
+        st.caption("※ Specify the injured area if applicable")
 
-        injury_severity = secret_slider_with_labels("12. 故障の程度", "練習できない", "全くない", "injury_severity")
+        injury_severity = secret_slider_with_labels("12. Severity of injury", "Worst Pain", "No Pain", "injury_severity")
         st.caption("")
 
-        training_intensity = secret_slider_with_labels("13. 練習強度", "非常にきつい", "非常に楽", "training_intensity")
+        training_intensity = secret_slider_with_labels("13. Training intensity（yesterday）", "Very Hard", "Very Easy", "training_intensity")
         st.caption("")
 
-        bowel_movement = st.radio("**14. 排便の有無**", ["有", "無"], key="bowel_movement")
+        bowel_movement = st.radio("**14. Defecation（yesterday）**", ["Yes", "No"], key="bowel_movement")
         st.caption("")
 
-        st.image("stool_chart.png", caption="便の形（1～7）", use_container_width=True)
+        st.image("stool_chart.png", caption="Type of stool（1～7）", use_container_width=True)
 
-        st.markdown("**15. 便の形**")
+        st.markdown("**15. Type of stool**")
         bowel_shape = st.selectbox("該当する番号を選択してください", list(range(1, 8)), key="bowel_shape") if bowel_movement == "有" else ""
         st.caption("※ 画像を参考に選択")
 
