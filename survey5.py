@@ -130,7 +130,7 @@ if not is_admin:
         sleep_quality = secret_slider_with_labels("7. Deepness of sleep", "Very Shallow", "Very Deep", "sleep_quality")
         st.caption("")
 
-        st.markdown("**8. Quality of sleep（multiple choice）**")
+        st.markdown("**8. Sleep quality（multiple choice）**")
         sleep_issues = st.multiselect("", [
             "Had a dream", "Woke up many times", "Went to restroom many times", "Perspired in sleep", "uneasy to sleep", "nothing in particular"], key="sleep_issues")
         st.caption("")
@@ -166,42 +166,42 @@ if not is_admin:
         spo2 = st.number_input("**17. SpO2（％）**", 70, 100, key="spo2")
         st.caption("")
 
-        pulse = st.number_input("**18. 脈拍数（拍/分）**", 30, 200, key="pulse")
+        pulse = st.number_input("**18. Pulse rate（bpm）**", 30, 200, key="pulse")
         st.caption("")
 
-        temperature = st.number_input("**19. 体温（℃）**", 34.0, 42.0, step=0.1, key="temperature")
+        temperature = st.number_input("**19. Body temperature（℃）**", 34.0, 42.0, step=0.1, key="temperature")
         st.caption("")
 
-        weight = st.number_input("**20. 体重（kg）**", 20.0, 150.0, step=0.1, key="weight")
+        weight = st.number_input("**20. Body weight（kg）**", 20.0, 150.0, step=0.1, key="weight")
         st.caption("")
 
-        symptoms = st.multiselect("**21. 特記事項（複数選択）**", [
-            "頭痛", "のどの痛み", "鼻水", "咳", "痰", "息苦しさ", "強いだるさ（倦怠感）",
-            "臭いがわかりにくい", "味がわかりにくい", "吐き気", "嘔吐", "その他"], key="symptoms")
+        symptoms = st.multiselect("**21. Special notes（multiple choice）**", [
+            "Headache", "Sore throat", "Runny nose", "Cough", "Phlegm", "Shortness of breath", "Severe fatigue（extreme tiredness）",
+            "Loss of smell（anosmia）", "Loss of taste", "Nausea", "Vomiting", "Other（please specify）"], key="symptoms")
         st.caption("")
 
-        other_symptoms = st.text_input("21-1. その他の症状", key="other_symptoms") if "その他" in symptoms else ""
-        if "その他" in symptoms:
+        other_symptoms = st.text_input("21-1. Other symptoms", key="other_symptoms") if "Other（please specify）" in symptoms else ""
+        if "Other（please specify）" in symptoms:
             st.caption("")
 
-        exercise_time = st.number_input("**22. トレーニング時間（分）**", 0, 300, key="exercise_time")
+        exercise_time = st.number_input("**22. Training time（min）**", 0, 300, key="exercise_time")
         st.caption("")
 
-        st.image("rpe_chart.png", caption="運動のきつさ（0～10）", use_container_width=True)
-        exercise_rpe = st.selectbox("**23. 運動のきつさ（RPE）**", list(range(0, 11)), key="exercise_rpe")
-        st.caption("※画像を参考に運動のきつさ（RPE）を選択してください")
+        st.image("rpe_chart.png", caption="Exercise intensity（0～10）", use_container_width=True)
+        exercise_rpe = st.selectbox("**23. Exercise intensity（RPE）**", list(range(0, 11)), key="exercise_rpe")
+        st.caption("※Select your exercise intensity（RPE）based on the image")
 
-        if st.button("送信"):
+        if st.button("Submit"):
             if not team or not name:
-                st.error("❗ 所属と名前を入力してください")
+                st.error("❗ Please enter your team name and name")
             elif not sleep_issues:
-                st.error("❗ 8. 睡眠状況を選んでください")
-            elif injury == "有" and not injury_part:
-                st.error("❗ 11. 故障の箇所を入力してください")
-            elif "その他" in symptoms and not other_symptoms:
-                st.error("❗ 21-1. その他の症状を入力してください")
+                st.error("❗ 8. Please select your sleep quality")
+            elif injury == "with" and not injury_part:
+                st.error("❗ 11. Please enter your injured area")
+            elif "Other（please specify）" in symptoms and not other_symptoms:
+                st.error("❗ 21-1. Please enter your other symptoms")
             elif not exercise_rpe:
-                st.error("❗23. 運動のきつさ（RPE）を選択してください")
+                st.error("❗23. Please select your exercise intensity（RPE）")
             else:
                 data = {
                     "date": str(date_val), "team": team, "name": name,
@@ -222,7 +222,7 @@ if not is_admin:
                 else:
                     st.error("❌ Supabaseへの送信に失敗しました。")
     else:
-        st.success("✅ 回答ありがとうございました！")
+        st.success("✅ Thank you for your answer！")
         st.balloons()
-        st.markdown("次回もよろしくお願いします！")
+        st.markdown("Looking forward to next time！")
 
