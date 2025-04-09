@@ -157,10 +157,10 @@ if not is_admin:
         st.image("stool_chart.png", caption="Type of stool（1～7）", use_container_width=True)
 
         st.markdown("**15. Type of stool**")
-        bowel_shape = st.selectbox("該当する番号を選択してください", list(range(1, 8)), key="bowel_shape") if bowel_movement == "有" else ""
-        st.caption("※ 画像を参考に選択")
+        bowel_shape = st.selectbox("Please select the appropriate number", list(range(1, 8)), key="bowel_shape") if bowel_movement == "Yes" else ""
+        st.caption("※ Please select based on the image")
 
-        running_distance = st.number_input("**16. 走行距離（km）**", 0.0, 100.0, step=0.1, key="running_distance")
+        running_distance = st.number_input("**16. Running distance（km）**", 0.0, 100.0, step=0.1, key="running_distance")
         st.caption("")
 
         spo2 = st.number_input("**17. SpO2（％）**", 70, 100, key="spo2")
