@@ -78,7 +78,13 @@ def secret_slider_with_labels(title, left_label, right_label, key, min_value=0, 
     )
     st.markdown(f"<div style='display: flex; justify-content: space-between;'><span>{left_label}</span><span>{right_label}</span></div>", unsafe_allow_html=True)
     return value
-
+    
+# --- ping監視対応（UptimeRobotなど） ---
+query_params = st.query_params
+if query_params.get("ping", ["0"])[0] == "1":
+    st.write("pong")  # 応答確認用
+    st.stop()         # それ以上の処理を止める
+    
 # --- 送信完了フラグ初期化 ---
 if "submitted" not in st.session_state:
     st.session_state["submitted"] = False
