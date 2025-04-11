@@ -68,7 +68,14 @@ def export_to_gsheet(df):
 # --- スライダー（数値非表示）関数 ---
 def secret_slider_with_labels(title, left_label, right_label, key, min_value=0, max_value=100, default=50):
     st.markdown(f"**{title}**")
-    value = st.select_slider("", list(range(min_value, max_value + 1)), default, format_func=lambda x: "", key=key)
+    value = st.select_slider(
+        label=" ",
+        options=list(range(min_value, max_value + 1)),
+        value=default,
+        format_func=lambda x: "",
+        key=key,
+        label_visibility="collapsed"
+    )
     st.markdown(f"<div style='display: flex; justify-content: space-between;'><span>{left_label}</span><span>{right_label}</span></div>", unsafe_allow_html=True)
     return value
 
