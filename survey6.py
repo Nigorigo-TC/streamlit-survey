@@ -197,8 +197,13 @@ if not is_admin:
         if "その他" in symptoms:
             st.caption("")
 
-        exercise_time = st.number_input("**22. トレーニング時間（分）**", 0, 300, key="exercise_time")
-        st.caption("※ウォームアップおよびクールダウンの時間は含めなくて大丈夫です")
+        if "exercise_time_selected" not in st.session_state:
+           st.session_state["exercise_time_selected"] = False
+
+        exercise_time = st.number_input("**22. トレーニング時間（分）**",
+                                        min_value=0, max_value=300, step=1,
+                                        key="exercise_time",
+                                        on_change=lambda: st.session_state.update({"exercise_time_selected": True}))
 
 
         st.image("rpe_chart.png", caption="運動のきつさ（0～10）", use_container_width=True)
