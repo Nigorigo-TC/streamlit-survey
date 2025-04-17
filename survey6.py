@@ -164,7 +164,7 @@ if not is_admin:
         training_intensity = secret_slider_with_labels("13. 練習強度", "非常にきつい", "非常に楽", "training_intensity")
         st.caption("")
 
-        bowel_movement = st.radio("**14. 排便の有無**", ["有", "無"], key="bowel_movement")
+        bowel_movement = st.radio("**14. 前日の排便の有無**", ["有", "無"], key="bowel_movement")
         st.caption("")
 
         st.image("stool_chart.png", caption="便の形（1～7）", use_container_width=True)
@@ -173,7 +173,7 @@ if not is_admin:
         bowel_shape = st.selectbox("上記画像を参考に該当する番号を選択してください", list(range(1, 8)), key="bowel_shape") if bowel_movement == "有" else ""
         st.caption("※ 画像を参考に選択")
 
-        running_distance = st.number_input("**16. 走行距離（km）**", 0.0, 100.0, step=0.1, key="running_distance")
+        running_distance = st.number_input("**16. 前日の走行距離（km）**", 0.0, 100.0, step=0.1, key="running_distance")
         st.caption("")
 
         spo2 = st.number_input("**17. SpO2（％）**", 70, 100, key="spo2")
@@ -198,7 +198,7 @@ if not is_admin:
             st.caption("")
 
         options = [None] + list(range(0, 301))
-        exercise_time = st.selectbox("**22. トレーニング時間（分）**",
+        exercise_time = st.selectbox("**22. 前日のトレーニング時間（分）**",
                                      options=options,
                                      format_func=lambda x: "入力してください" if x is None else f"{x} 分",
                                      key="exercise_time")
