@@ -197,7 +197,7 @@ if not is_admin:
         if "その他" in symptoms:
             st.caption("")
 
-      exercise_time = st.number_input("**22. トレーニング時間（分）**", 0, 300, key="exercise_time")
+        exercise_time = st.number_input("**22. トレーニング時間（分）**", 0, 300, key="exercise_time")
         st.caption("※ウォームアップおよびクールダウンの時間は含めなくて大丈夫です")
 
 
