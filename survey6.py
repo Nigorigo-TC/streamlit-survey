@@ -198,7 +198,7 @@ if not is_admin:
             st.caption("")
 
         exercise_time = st.number_input("**22. トレーニング時間（分）**", 0, 300, key="exercise_time")
-        st.caption("")
+        st.caption("ウォームアップおよびクールダウンの時間は含めない")
 
         st.image("rpe_chart.png", caption="運動のきつさ（0～10）", use_container_width=True)
         exercise_rpe = st.selectbox("**23. 運動のきつさ（RPE）**", list(range(0, 11)), key="exercise_rpe")
@@ -213,6 +213,8 @@ if not is_admin:
                 st.error("❗ 11. 故障の箇所を入力してください")
             elif "その他" in symptoms and not other_symptoms:
                 st.error("❗ 21-1. その他の症状を入力してください")
+            elif not exercise_time:
+                st.error("❗ 22. トレーニング時間（分）を入力してください")
             elif not exercise_rpe:
                 st.error("❗23. 運動のきつさ（RPE）を選択してください")
             else:
