@@ -216,8 +216,6 @@ if not is_admin:
         if st.button("送信"):
             if not team or not name:
                 st.error("❗ 所属と名前を入力してください")
-            elif not sleep_issues:
-                st.error("❗ 8. 睡眠状況を選んでください")
             elif injury == "有" and not injury_part:
                 st.error("❗ 11. 故障の箇所を入力してください")
             elif "その他" in symptoms and not other_symptoms:
