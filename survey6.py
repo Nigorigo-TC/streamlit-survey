@@ -197,13 +197,8 @@ if not is_admin:
         if "その他" in symptoms:
             st.caption("")
 
-      # 0〜300の選択肢に「未選択（None）」を加える
-        options = [None] + list(range(0, 301))
-        exercise_time = st.select_slider("**22. トレーニング時間（分）**",
-                                         options=options,
-                                         value=None,
-                                         format_func=lambda x: "選択してください" if x is None else f"{x} 分",
-                                         key="exercise_time")
+      exercise_time = st.number_input("**22. トレーニング時間（分）**", 0, 300, key="exercise_time")
+        st.caption("※ウォームアップおよびクールダウンの時間は含めなくて大丈夫です")
 
 
         st.image("rpe_chart.png", caption="運動のきつさ（0～10）", use_container_width=True)
