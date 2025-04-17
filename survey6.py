@@ -198,7 +198,7 @@ if not is_admin:
             st.caption("")
 
        # 0〜300の選択肢に「未選択（None）」を加える
-　　　　options = [None] + list(range(0, 301))
+       options = [None] + list(range(0, 301))
 　　　　exercise_time = st.select_slider(
    　　 "**22. トレーニング時間（分）**",
    　　 options=options,
