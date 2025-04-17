@@ -53,6 +53,7 @@ SPREADSHEET_NAME = "2025年度_起床時コンディションチェック"
 SHEET_NAME = "condition2025"
 
 def export_to_gsheet(df):
+    df = df.fillna("")
     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
     creds_dict = st.secrets["google_service_account"]
     creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
