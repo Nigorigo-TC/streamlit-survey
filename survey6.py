@@ -211,7 +211,7 @@ if not is_admin:
                                     options = rpe_options,
                                     format_func=lambda x: "入力してください" if x is None else str(x),
                                     key="exercise_rpe")
-        st.caption("※上記画像を参考に運動のきつさ（RPE）を選択してください")
+        st.caption("※上記画像を参考に運動のきつさ（RPE）を入力してください")
 
         if st.button("送信"):
             if not team or not name:
@@ -225,7 +225,7 @@ if not is_admin:
             elif exercise_time is None:
                 st.error("❗ 22. トレーニング時間（分）を入力してください")
             elif not exercise_rpe is None:
-                st.error("❗23. 運動のきつさ（RPE）を選択してください")
+                st.error("❗23. 運動のきつさ（RPE）を入力してください")
             else:
                 data = {
                     "date": str(date_val), "team": team, "name": name,
