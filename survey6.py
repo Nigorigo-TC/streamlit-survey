@@ -206,7 +206,11 @@ if not is_admin:
 
 
         st.image("rpe_chart.png", caption="運動のきつさ（0～10）", use_container_width=True)
-        exercise_rpe = st.selectbox("**23. 運動のきつさ（RPE）**", list(range(0, 11)), key="exercise_rpe")
+        rpe_options = [None] + list(range(0,11))
+        exercise_rpe = st.selectbox("**23. 運動のきつさ（RPE）**", 
+                                    options = rpe_options,
+                                    format_func=lambda x: "入力してください" if x is None else set(x),
+                                    key="exercise_rpe")
         st.caption("※上記画像を参考に運動のきつさ（RPE）を選択してください")
 
         if st.button("送信"):
