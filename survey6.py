@@ -219,6 +219,8 @@ if not is_admin:
                 st.error("❗ 11. 故障の箇所を入力してください")
             elif "その他" in symptoms and not other_symptoms:
                 st.error("❗ 21-1. その他の症状を入力してください")
+            elif not st.session_state["exercise_time_selected"]:
+                st.error("❗ 22. トレーニング時間を入力してください")
             elif not exercise_rpe:
                 st.error("❗23. 運動のきつさ（RPE）を選択してください")
             else:
