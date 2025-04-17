@@ -170,7 +170,7 @@ if not is_admin:
         st.image("stool_chart.png", caption="便の形（1～7）", use_container_width=True)
 
         st.markdown("**15. 便の形**")
-        bowel_shape = st.selectbox("該当する番号を選択してください", list(range(1, 8)), key="bowel_shape") if bowel_movement == "有" else ""
+        bowel_shape = st.selectbox("上記画像を参考に該当する番号を選択してください", list(range(1, 8)), key="bowel_shape") if bowel_movement == "有" else ""
         st.caption("※ 画像を参考に選択")
 
         running_distance = st.number_input("**16. 走行距離（km）**", 0.0, 100.0, step=0.1, key="running_distance")
@@ -202,12 +202,13 @@ if not is_admin:
                                      options=options,
                                      format_func=lambda x: "選択してください" if x is None else f"{x} 分",
                                      key="exercise_time")
-        st.caption("※ウォームアップおよびクールダウンの時間は含めなくて大丈夫です")
+        st.caption("※ウォームアップおよびクールダウンの時間は含めなくて大丈夫です
+                    ※手入力も可能です")
 
 
         st.image("rpe_chart.png", caption="運動のきつさ（0～10）", use_container_width=True)
         exercise_rpe = st.selectbox("**23. 運動のきつさ（RPE）**", list(range(0, 11)), key="exercise_rpe")
-        st.caption("※画像を参考に運動のきつさ（RPE）を選択してください")
+        st.caption("※上記画像を参考に運動のきつさ（RPE）を選択してください")
 
         if st.button("送信"):
             if not team or not name:
