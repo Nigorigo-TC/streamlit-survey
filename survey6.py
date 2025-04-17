@@ -224,7 +224,7 @@ if not is_admin:
                 st.error("❗ 21-1. その他の症状を入力してください")
             elif exercise_time is None:
                 st.error("❗ 22. トレーニング時間（分）を入力してください")
-            elif not exercise_rpe:
+            elif not exercise_rpe is None:
                 st.error("❗23. 運動のきつさ（RPE）を選択してください")
             else:
                 data = {
