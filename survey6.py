@@ -209,7 +209,7 @@ if not is_admin:
         rpe_options = [None] + list(range(0,11))
         exercise_rpe = st.selectbox("**23. 運動のきつさ（RPE）**", 
                                     options = rpe_options,
-                                    format_func=lambda x: "入力してください" if x is None else set(x),
+                                    format_func=lambda x: "入力してください" if x is None else str(x),
                                     key="exercise_rpe")
         st.caption("※上記画像を参考に運動のきつさ（RPE）を選択してください")
 
