@@ -202,7 +202,7 @@ if not is_admin:
                                      options=options,
                                      format_func=lambda x: "選択してください" if x is None else f"{x} 分",
                                      key="exercise_time")
-             st.caption("※ウォームアップおよびクールダウンの時間は含めなくて大丈夫です")
+        st.caption("※ウォームアップおよびクールダウンの時間は含めなくて大丈夫です")
 
 
         st.image("rpe_chart.png", caption="運動のきつさ（0～10）", use_container_width=True)
