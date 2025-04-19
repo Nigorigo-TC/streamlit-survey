@@ -124,7 +124,7 @@ if not is_admin:
         st.caption(" ")
 
         st.markdown("**2. 所属**")
-        team = st.text_input("チーム名", key="team", label_visibility="collapsed")
+        team = st.text_input("チーム名", key="team")
         st.caption(" ")
 
         st.markdown("**3. 名前**")
