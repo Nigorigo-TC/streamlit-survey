@@ -121,11 +121,11 @@ if not is_admin:
 
     if not st.session_state["submitted"]:
         date_val = st.date_input("**1. 日付**", value=date.today(), key="date")
-        st.caption("")
+        st.caption(" ")
 
         st.markdown("**2. 所属**")
-        team = st.text_input("", key="team")
-        st.caption("")
+        team = st.text_input("チーム名", key="team", label_visibility="collapsed")
+        st.caption(" ")
 
         st.markdown("**3. 名前**")
         name = st.text_input("", key="name")
