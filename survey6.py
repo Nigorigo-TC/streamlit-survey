@@ -8,7 +8,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 # --- Supabase 接続情報 ---
 SUPABASE_URL = st.secrets["supabase_url"]
 SUPABASE_KEY = st.secrets["supabase_key"]
-TABLE_NAME = "condition2025"
+TABLE_NAME = "condition"
 
 # --- Supabaseにデータ送信 ---
 def submit_to_supabase(data_dict):
