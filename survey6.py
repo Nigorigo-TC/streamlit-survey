@@ -20,10 +20,13 @@ def submit_to_supabase(data_dict):
     data_dict["exported"] = False  # 新規は未出力とする
     response = requests.post(
         f"{SUPABASE_URL}/rest/v1/{TABLE_NAME}",
-        json=data_dict,
+        json=data_dict,  # リストではなく辞書を直接送信
         headers=headers
     )
-    return response.status_code == 201
+    if response.status_code != 201:
+        st.error(f"❌ Supabaseへの送信に失敗しました: {response.status_code} {response.text}")
+        return False
+    return True
 
 # --- Supabaseから未出力データ取得 ---
 def fetch_unexported_data():
