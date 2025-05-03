@@ -173,7 +173,7 @@ if not is_admin:
 
         st.image("stool_chart.png", caption="便の形（1～7）", use_container_width=True)
 
-        st.markdown("**15. 便の形**")
+        st.markdown("**15. 前日の便の形**")
         bowel_shape = st.selectbox("上記画像を参考に該当する番号を選択してください", list(range(1, 8)), key="bowel_shape") if bowel_movement == "有" else ""
         st.caption("※ 画像を参考に選択")
 
@@ -211,7 +211,7 @@ if not is_admin:
 
         st.image("rpe_chart.png", caption="運動のきつさ（0～10）", use_container_width=True)
         rpe_options = [None] + list(range(0,11))
-        exercise_rpe = st.selectbox("**23. 運動のきつさ（RPE）**", 
+        exercise_rpe = st.selectbox("**23. 前日の運動のきつさ（RPE）**", 
                                     options = rpe_options,
                                     format_func=lambda x: "入力してください" if x is None else str(x),
                                     key="exercise_rpe")
