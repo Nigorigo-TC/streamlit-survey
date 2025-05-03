@@ -20,7 +20,7 @@ def submit_to_supabase(data_dict):
     data_dict["exported"] = False  # 新規は未出力とする
     response = requests.post(
         f"{SUPABASE_URL}/rest/v1/{TABLE_NAME}",
-        json=[data_dict],
+        json=data_dict,
         headers=headers
     )
     return response.status_code == 201
