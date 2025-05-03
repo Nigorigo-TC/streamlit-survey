@@ -10,22 +10,6 @@ SUPABASE_URL = st.secrets["supabase_url"]
 SUPABASE_KEY = st.secrets["supabase_key"]
 TABLE_NAME = "condition2025"
 
-# 送信するデータに None 対策を追加
-data = {
-    "date": str(date_val), "team": team, "name": name,
-    "health": health_condition, "fatigue": fatigue,
-    "sleep_time": sleep_time, "sleep_quality": sleep_quality,
-    "sleep_issues": ", ".join(sleep_issues), "appetite": appetite,
-    "injury": injury, "injury_part": injury_part,
-    "injury_severity": injury_severity, "training_intensity": training_intensity,
-    "bowel_movement": bowel_movement, "bowel_shape": bowel_shape,
-    "running_distance": running_distance, "spo2": spo2, "pulse": pulse,
-    "temperature": temperature, "weight": weight,
-    "symptoms": ", ".join(symptoms), "other_symptoms": other_symptoms,
-    "exercise_time": exercise_time if exercise_time is not None else 0,  # Noneを0に変更
-    "exercise_rpe": exercise_rpe if exercise_rpe is not None else 0  # Noneを0に変更
-}
-
 # --- Supabaseにデータ送信 ---
 def submit_to_supabase(data_dict):
     headers = {
