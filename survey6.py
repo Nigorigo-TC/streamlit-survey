@@ -52,7 +52,7 @@ def mark_as_exported(ids):
         requests.patch(url, headers=headers, json={"exported": True})
 
 # --- Googleスプレッドシート出力 ---
-SPREADSHEET_NAME = "2025年度_起床時コンディションチェック"
+SPREADSHEET_NAME = "2025年度_起床時コンディションチェック（実業団・NF）"
 SHEET_NAME = "condition2025"
 
 def export_to_gsheet(df):
