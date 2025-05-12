@@ -195,7 +195,7 @@ if not is_admin:
         symptoms = st.multiselect("**21. 特記事項（複数選択）**", [
             "特になし", "咳", "鼻水", "頭痛", "息苦しさ", "下痢", "喉の痛み", "悪寒",
             "腹痛", "熱感", "倦怠感", "吐き気", "痰", "月経", "不正出血", "服薬", "その他"], key="symptoms")
-        st.caption(" ")
+        st.caption("※特にない場合は、「特になし」を選択してください")
 
         other_symptoms = st.text_input("21-1. その他の症状", key="other_symptoms") if "その他" in symptoms else ""
         if "その他" in symptoms:
