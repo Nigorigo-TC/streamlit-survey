@@ -222,7 +222,7 @@ if not is_admin:
                 st.error("❗ 所属と名前を入力してください")
             elif injury == "有" and not injury_part:
                 st.error("❗ 11. 故障の箇所を入力してください")
-            elif symtoms is None:
+            elif symptoms is None:
                 st.error("❗21. 特記事項を選択してください")
             elif "その他" in symptoms and not other_symptoms:
                 st.error("❗ 21-1. その他の症状を入力してください")
