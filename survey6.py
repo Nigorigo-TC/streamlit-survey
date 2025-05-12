@@ -252,6 +252,6 @@ if not is_admin:
     else:
         st.success("✅ 回答ありがとうございました！")
         st.balloons()
-        st.markdown("次回もよろしくお願いします！")
+        st.markdown("今日も1日がんばっていきましょう！")
 
 
