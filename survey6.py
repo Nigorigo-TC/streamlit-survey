@@ -155,14 +155,14 @@ if not is_admin:
         appetite = secret_slider_with_labels("9. 食欲", "全く無い", "とてもある", "appetite")
         st.caption(" ")
 
-        injury = st.radio("**10. 故障の有無**", ["無", "有"], key="injury")
+        injury = st.radio("**10. 怪我の有無**", ["無", "有"], key="injury")
         st.caption(" ")
 
-        st.markdown("**11. 故障の箇所**")
+        st.markdown("**11. 怪我の箇所**")
         injury_part = st.text_input("hidden", key="injury_part", label_visibility="collapsed") if injury == "有" else ""
         st.caption("※ 故障している場合は部位を具体的に入力")
 
-        injury_severity = secret_slider_with_labels("12. 故障の程度", "練習できない", "全くない", "injury_severity")
+        injury_severity = secret_slider_with_labels("12. 怪我の程度", "練習できない", "全くない", "injury_severity")
         st.caption(" ")
 
         training_intensity = secret_slider_with_labels("13. 練習強度", "非常にきつい", "非常に楽", "training_intensity")
@@ -193,8 +193,8 @@ if not is_admin:
         st.caption(" ")
 
         symptoms = st.multiselect("**21. 特記事項（複数選択）**", [
-            "頭痛", "のどの痛み", "鼻水", "咳", "痰", "息苦しさ", "強いだるさ（倦怠感）",
-            "臭いがわかりにくい", "味がわかりにくい", "吐き気", "嘔吐", "その他"], key="symptoms")
+            "咳", "鼻水", "頭痛", "息苦しさ", "下痢", "のどの痛み", "悪寒",
+            "腹痛", "熱感", "倦怠感", "吐き気", "痰", "月経", "不正出血", "服薬", "その他"], key="symptoms")
         st.caption(" ")
 
         other_symptoms = st.text_input("21-1. その他の症状", key="other_symptoms") if "その他" in symptoms else ""
