@@ -193,7 +193,7 @@ if not is_admin:
         st.caption(" ")
 
         symptoms = st.multiselect("**21. 特記事項（複数選択）**", [
-            "咳", "鼻水", "頭痛", "息苦しさ", "下痢", "のどの痛み", "悪寒",
+            "特になし", "咳", "鼻水", "頭痛", "息苦しさ", "下痢", "喉の痛み", "悪寒",
             "腹痛", "熱感", "倦怠感", "吐き気", "痰", "月経", "不正出血", "服薬", "その他"], key="symptoms")
         st.caption(" ")
 
@@ -222,6 +222,8 @@ if not is_admin:
                 st.error("❗ 所属と名前を入力してください")
             elif injury == "有" and not injury_part:
                 st.error("❗ 11. 故障の箇所を入力してください")
+            elif symtoms is None:
+                st.error("❗21. 特記事項を選択してください")
             elif "その他" in symptoms and not other_symptoms:
                 st.error("❗ 21-1. その他の症状を入力してください")
             elif exercise_time is None:
