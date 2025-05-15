@@ -142,7 +142,7 @@ if not is_admin:
 
         st.markdown("**6. 睡眠時間（例：7時間15分→7.25、7時間30分→7.5）**")
         sleep_time = st.number_input("hidden", 0.0, 24.0, step=0.1, key="sleep_time", label_visibility="collapsed")
-        st.caption(" ")
+        st.caption("※手入力もできます")
 
         sleep_quality = secret_slider_with_labels("7. 睡眠の深さ", "とても浅い", "とても深い", "sleep_quality")
         st.caption(" ")
