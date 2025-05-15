@@ -178,19 +178,19 @@ if not is_admin:
         st.caption("※ 画像を参考に選択")
 
         running_distance = st.number_input("**16. 前日の走行距離（km）**", 0.0, 100.0, step=0.1, key="running_distance")
-        st.caption(" ")
+        st.caption("手入力もできます")
 
         spo2 = st.number_input("**17. SpO2（％）**", 70, 100, key="spo2")
-        st.caption(" ")
+        st.caption("手入力もできます")
 
         pulse = st.number_input("**18. 脈拍数（拍/分）**", 30, 200, key="pulse")
-        st.caption(" ")
+        st.caption("手入力もできます")
 
         temperature = st.number_input("**19. 体温（℃）**", 34.0, 42.0, step=0.1, key="temperature")
-        st.caption(" ")
+        st.caption("手入力もできます")
 
         weight = st.number_input("**20. 体重（kg）**", 20.0, 150.0, step=0.1, key="weight")
-        st.caption(" ")
+        st.caption("手入力もできます")
 
         symptoms = st.multiselect("**21. 特記事項（複数選択）**", [
             "特になし", "咳", "鼻水", "頭痛", "息苦しさ", "下痢", "喉の痛み", "悪寒",
@@ -202,7 +202,7 @@ if not is_admin:
             st.caption(" ")
 
         options = [None] + list(range(0, 301))
-        exercise_time = st.selectbox("**22. 前日のトレーニング時間（分）**",
+        exercise_time = st.selectbox("**22. 前日のトレーニング時間（分） ※入力もできます**",
                                      options=options,
                                      format_func=lambda x: "入力してください" if x is None else f"{x} 分",
                                      key="exercise_time")
