@@ -160,7 +160,7 @@ if not is_admin:
 
         st.markdown("**11. 故障・怪我の箇所**")
         injury_part = st.text_input("hidden", key="injury_part", label_visibility="collapsed") if injury == "有" else ""
-        st.caption("※ 故障・怪我がある場合は部位を具体的に入力してください（例：右足首")
+        st.caption("※ 故障・怪我がある場合は部位を具体的に入力してください（例：右足首）")
 
         injury_severity = secret_slider_with_labels("12. 故障・怪我の程度", "練習できない", "全くない", "injury_severity")
         st.caption(" ")
