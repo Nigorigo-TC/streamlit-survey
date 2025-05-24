@@ -155,14 +155,14 @@ if not is_admin:
         appetite = secret_slider_with_labels("9. 食欲", "全く無い", "とてもある", "appetite")
         st.caption(" ")
 
-        injury = st.radio("**10. 怪我の有無**", ["無", "有"], key="injury")
+        injury = st.radio("**10. 故障・怪我の有無**", ["無", "有"], key="injury")
         st.caption(" ")
 
-        st.markdown("**11. 怪我の箇所**")
+        st.markdown("**11. 故障・怪我の箇所**")
         injury_part = st.text_input("hidden", key="injury_part", label_visibility="collapsed") if injury == "有" else ""
         st.caption("※ 故障している場合は部位を具体的に入力")
 
-        injury_severity = secret_slider_with_labels("12. 怪我の程度", "練習できない", "全くない", "injury_severity")
+        injury_severity = secret_slider_with_labels("12. 故障・怪我の程度", "練習できない", "全くない", "injury_severity")
         st.caption(" ")
 
         training_intensity = secret_slider_with_labels("13. 練習強度", "非常にきつい", "非常に楽", "training_intensity")
