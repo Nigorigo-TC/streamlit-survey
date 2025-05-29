@@ -252,6 +252,6 @@ if not is_admin:
     else:
         st.success("✅ 回答ありがとうございました！")
         st.balloons()
-        st.markdown("今日もぱにぱにわいどー（宮古島の方言です）")
+        st.markdown("今日も1日ぱにぱにわいどー（宮古島の方言です）")
 
 
