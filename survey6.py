@@ -149,7 +149,7 @@ if not is_admin:
 
         st.markdown("**8. 睡眠状況（複数選択）**")
         sleep_issues = st.multiselect("hidden", [
-            "夢を見た", "何回も目覚めた", "何回もトイレに行った", "寝汗をかいた", "普段より寝付けなかった", "特になし"], key="sleep_issues", label_visibility="collapsed")
+            "夢を見た", "何回も目覚めた", "何回もトイレに行った", "寝汗をかいた", "寝付けなかった", "普段より寝付けなかった", "特になし"], key="sleep_issues", label_visibility="collapsed")
         st.caption(" ")
 
         appetite = secret_slider_with_labels("9. 食欲", "全く無い", "とてもある", "appetite")
@@ -252,6 +252,6 @@ if not is_admin:
     else:
         st.success("✅ 回答ありがとうございました！")
         st.balloons()
-        st.markdown("今日も1日ぱにぱにわいどー（宮古島の方言です）")
+        st.markdown("本日もよろしくお願いします！")
 
 
