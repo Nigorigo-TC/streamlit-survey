@@ -120,116 +120,116 @@ if is_admin:
 # 一般ユーザー用ページ
 # ========================
 if not is_admin:
-    st.title("コンディション記録")
+    st.title("Record of the physical condition")
 
     if not st.session_state["submitted"]:
-        date_val = st.date_input("**1. 日付**", value=date.today(), key="date")
+        date_val = st.date_input("**1. Date**", value=date.today(), key="date")
         st.caption(" ")
 
-        st.markdown("**2. 所属**")
+        st.markdown("**2. Team name**")
         team = st.text_input("hidden", key="team", label_visibility="collapsed")
         st.caption(" ")
 
-        st.markdown("**3. 名前**")
+        st.markdown("**3. Name**")
         name = st.text_input("hidden", key="name", label_visibility="collapsed")
-        st.caption("※ フルネームで入力してください")
+        st.caption("※ Please enter your full name")
 
-        health_condition = secret_slider_with_labels("4. 全般的体調", "とても悪い", "とても良い", "health")
+        health_condition = secret_slider_with_labels("4. Body condition", "Very Bad", "Very Good", "health")
         st.caption(" ")
 
-        fatigue = secret_slider_with_labels("5. 疲労感", "とても強い", "全く無い", "fatigue")
+        fatigue = secret_slider_with_labels("5. Fatigue", "Very Bad", "Very Good", "fatigue")
         st.caption(" ")
 
-        st.markdown("**6. 睡眠時間（例：7時間15分→7.25、7時間30分→7.5）**")
+        st.markdown("**6. Amount of sleep（ex. 7h15min→7.25、7h30min→7.5）**")
         sleep_time = st.number_input("hidden", 0.0, 24.0, step=0.1, key="sleep_time", label_visibility="collapsed")
-        st.caption("※手入力もできます")
+        st.caption("※You can also enter it manually")
 
-        sleep_quality = secret_slider_with_labels("7. 睡眠の深さ", "とても浅い", "とても深い", "sleep_quality")
+        sleep_quality = secret_slider_with_labels("7. Deepness of sleep", "Very Shallow", "Very Deep", "sleep_quality")
         st.caption(" ")
 
-        st.markdown("**8. 睡眠状況（複数選択）**")
+        st.markdown("**8. Sleep quality（multile choice）**")
         sleep_issues = st.multiselect("hidden", [
-            "夢を見た", "何回も目覚めた", "何回もトイレに行った", "寝汗をかいた", "寝付けなかった", "普段より寝付けなかった", "特になし"], key="sleep_issues", label_visibility="collapsed")
+            "Had a dream", "Woke up many times", "Went to restroom many times", "Perspired in sleep", "Uneasy to sleep", "None"], key="sleep_issues", label_visibility="collapsed")
         st.caption(" ")
 
-        appetite = secret_slider_with_labels("9. 食欲", "全く無い", "とてもある", "appetite")
+        appetite = secret_slider_with_labels("9. Appetite", "Very Small", "Very Big", "appetite")
         st.caption(" ")
 
-        injury = st.radio("**10. 故障・怪我の有無**", ["無", "有"], key="injury")
+        injury = st.radio("**10. Injury**", ["without", "with"], key="injury")
         st.caption(" ")
 
-        st.markdown("**11. 故障・怪我の箇所**")
-        injury_part = st.text_input("hidden", key="injury_part", label_visibility="collapsed") if injury == "有" else ""
-        st.caption("※ 故障・怪我がある場合は部位を具体的に入力してください（例：右足首）")
+        st.markdown("**11. Injured area**")
+        injury_part = st.text_input("hidden", key="injury_part", label_visibility="collapsed") if injury == "with" else ""
+        st.caption("※ If you are injured, please describe the specific location of the injury（ex. right ankle）")
 
-        injury_severity = secret_slider_with_labels("12. 故障・怪我の程度", "練習できない", "全くない", "injury_severity")
+        injury_severity = secret_slider_with_labels("12. Severity of injury", "Worst pain", "No Pain", "injury_severity")
         st.caption(" ")
 
-        training_intensity = secret_slider_with_labels("13. 練習強度", "非常にきつい", "非常に楽", "training_intensity")
+        training_intensity = secret_slider_with_labels("13. Training intensity（yesterday）", "Very Hard", "Very Easy", "training_intensity")
         st.caption(" ")
 
-        bowel_movement = st.radio("**14. 前日の排便の有無**", ["有", "無"], key="bowel_movement")
+        bowel_movement = st.radio("**14. Defecation**", ["Yes", "No"], key="bowel_movement")
         st.caption(" ")
 
-        st.image("stool_chart.png", caption="便の形（1～7）", use_container_width=True)
+        st.image("stool_chart.png", caption="Type of stool（1～7）", use_container_width=True)
 
-        st.markdown("**15. 前日の便の形**")
-        bowel_shape = st.selectbox("上記画像を参考に該当する番号を選択してください", list(range(1, 8)), key="bowel_shape") if bowel_movement == "有" else ""
-        st.caption("※ 画像を参考に選択")
+        st.markdown("**15. Type of stool（yesterday）**")
+        bowel_shape = st.selectbox("Please select the corresponding number with reference to the image above", list(range(1, 8)), key="bowel_shape") if bowel_movement == "有" else ""
+        st.caption("※ Please select based on the image")
 
-        running_distance = st.number_input("**16. 前日の走行距離（km）**", 0.0, 100.0, step=0.1, key="running_distance")
-        st.caption("※手入力もできます")
+        running_distance = st.number_input("**16. Running distance（yesterday）**", 0.0, 100.0, step=0.1, key="running_distance")
+        st.caption("※You can also enter it manually")
 
-        spo2 = st.number_input("**17. SpO2（％）**", 70, 100, key="spo2")
-        st.caption("※手入力もできます")
+        spo2 = st.number_input("**17. SpO2**", 70, 100, key="spo2")
+        st.caption("※You can also enter it manually")
 
-        pulse = st.number_input("**18. 脈拍数（拍/分）**", 30, 200, key="pulse")
-        st.caption("※手入力もできます")
+        pulse = st.number_input("**18. Pulse rate**", 20, 200, key="pulse")
+        st.caption("※You can also enter it manually")
 
-        temperature = st.number_input("**19. 体温（℃）**", 34.0, 42.0, step=0.1, key="temperature")
-        st.caption("※手入力もできます")
+        temperature = st.number_input("**19. Body temerature**", 33.0, 42.0, step=0.1, key="temperature")
+        st.caption("※You can also enter it manually")
 
-        weight = st.number_input("**20. 体重（kg）**", 20.0, 150.0, step=0.1, key="weight")
-        st.caption("※手入力もできます")
+        weight = st.number_input("**20. Body weight**", 20.0, 150.0, step=0.1, key="weight")
+        st.caption("※You can also enter it manually")
 
-        symptoms = st.multiselect("**21. 特記事項（複数選択）**", [
-            "特になし", "咳", "鼻水", "頭痛", "息苦しさ", "下痢", "喉の痛み", "悪寒",
-            "腹痛", "熱感", "倦怠感", "吐き気", "痰", "月経", "不正出血", "服薬", "その他"], key="symptoms")
-        st.caption("※特にない場合は、「特になし」を選択してください")
+        symptoms = st.multiselect("**21. Special notes（multiple choice）**", [
+            "None", "Cough", "Runny nose", "Headache", "Shortness of breath", "Diarrhea", "Sore throat", "Chills",
+            "Abdominal pain", "Feeling feverish", "Severe fatigue（extreme tiredness）", "Nausea", "Phlegm", "Menstruation", "Irregular bleeding", "Taking medication", "Other（please specify）"], key="symptoms")
+        st.caption("※If none apply, please select 'None'")
 
-        other_symptoms = st.text_input("21-1. その他の症状", key="other_symptoms") if "その他" in symptoms else ""
-        if "その他" in symptoms:
+        other_symptoms = st.text_input("21-1. Other symptoms", key="other_symptoms") if "Other（please specify）" in symptoms else ""
+        if "Other（please specify）" in symptoms:
             st.caption(" ")
 
         options = [None] + list(range(0, 301))
-        exercise_time = st.selectbox("**22. 前日のトレーニング時間（分） ※手入力もできます**",
+        exercise_time = st.selectbox("**22. Yesterday's training time（min） ※You can also enter it manually**",
                                      options=options,
-                                     format_func=lambda x: "入力してください" if x is None else f"{x} 分",
+                                     format_func=lambda x: "Please enter" if x is None else f"{x} min",
                                      key="exercise_time")
-        st.caption("※ウォームアップおよびクールダウンの時間は含めなくて大丈夫です")
+        st.caption("※Warm-up and cool-down time don't need to be included")
 
 
-        st.image("rpe_chart.png", caption="運動のきつさ（0～10）", use_container_width=True)
+        st.image("rpe_chart.png", caption="Training intensity（0～10）", use_container_width=True)
         rpe_options = [None] + list(range(0,11))
-        exercise_rpe = st.selectbox("**23. 前日の運動のきつさ（RPE）**", 
+        exercise_rpe = st.selectbox("**23. Yesterday's training intensity（RPE）**", 
                                     options = rpe_options,
-                                    format_func=lambda x: "入力してください" if x is None else str(x),
+                                    format_func=lambda x: "Please enter" if x is None else str(x),
                                     key="exercise_rpe")
-        st.caption("※上記画像を参考に運動のきつさ（RPE）を入力してください")
+        st.caption("※Please enter the training intensity（RPE）based on the image above")
 
-        if st.button("送信"):
+        if st.button("Submit"):
             if not team or not name:
-                st.error("❗ 所属と名前を入力してください")
+                st.error("❗ Please enter your team and name")
             elif injury == "有" and not injury_part:
-                st.error("❗ 11. 故障の箇所を入力してください")
+                st.error("❗ Please enter your '11. injured area'")
             elif not symptoms:
-                st.error("❗21. 特記事項を選択してください")
+                st.error("❗ Please select your '21. Special notes（multiple choice）'")
             elif "その他" in symptoms and not other_symptoms:
-                st.error("❗ 21-1. その他の症状を入力してください")
+                st.error("❗ Please enter your '21-1. other symptoms'")
             elif exercise_time is None:
-                st.error("❗ 22. トレーニング時間（分）を入力してください")
+                st.error("❗ Please enter your '22. Yesterday's training time（min）'")
             elif exercise_rpe is None:
-                st.error("❗23. 運動のきつさ（RPE）を入力してください")
+                st.error("❗ Please enter your '23. Yesterday's training intensity'")
             else:
                 data = {
                     "date": str(date_val), "team": team, "name": name,
@@ -250,7 +250,7 @@ if not is_admin:
                 else:
                     st.error("❌ Supabaseへの送信に失敗しました。")
     else:
-        st.success("✅ 回答ありがとうございました！")
+        st.success("✅ Thank you for your response！")
         st.balloons()
-        st.markdown("本日もよろしくお願いします！")
+        st.markdown("Thank you, and have a great day！")
 
