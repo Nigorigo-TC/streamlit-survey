@@ -134,10 +134,10 @@ if not is_admin:
         name = st.text_input("hidden", key="name", label_visibility="collapsed")
         st.caption("※ フルネームで入力してください")
 
-        health_condition = secret_slider_with_labels("4. 全般的体調", "とても悪い", "とても良い", "health")
+        health_condition = secret_slider_with_labels("4. 全般的体調", "とても良い", "とても悪い", "health")
         st.caption(" ")
 
-        fatigue = secret_slider_with_labels("5. 疲労感", "とても強い", "全く無い", "fatigue")
+        fatigue = secret_slider_with_labels("5. 疲労感", "全くない", "とても強い", "fatigue")
         st.caption(" ")
 
         st.markdown("**6. 睡眠時間（例：7時間15分→7.25、7時間30分→7.5）**")
@@ -162,10 +162,10 @@ if not is_admin:
         injury_part = st.text_input("hidden", key="injury_part", label_visibility="collapsed") if injury == "有" else ""
         st.caption("※ 故障・怪我がある場合は部位を具体的に入力してください（例：右足首）")
 
-        injury_severity = secret_slider_with_labels("12. 故障・怪我の程度", "練習できない", "全くない", "injury_severity")
+        injury_severity = secret_slider_with_labels("12. 故障・怪我の程度", "全くない", "練習ができない", "injury_severity")
         st.caption(" ")
 
-        training_intensity = secret_slider_with_labels("13. 練習強度", "非常にきつい", "非常に楽", "training_intensity")
+        training_intensity = secret_slider_with_labels("13. 練習強度", "非常に楽", "非常にきつい", "training_intensity")
         st.caption(" ")
 
         bowel_movement = st.radio("**14. 前日の排便の有無**", ["有", "無"], key="bowel_movement")
@@ -253,5 +253,6 @@ if not is_admin:
         st.success("✅ 回答ありがとうございました！")
         st.balloons()
         st.markdown("本日もよろしくお願いします！")
+
 
 
